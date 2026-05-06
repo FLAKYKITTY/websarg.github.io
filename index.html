@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+  <title>3D → Layered Images</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://esm.sh/three@0.158.0",
+      "three/": "https://esm.sh/three@0.158.0/",
+      "three/examples/jsm/": "https://esm.sh/three@0.158.0/examples/jsm/",
+      "jszip": "https://esm.sh/jszip@3.10.1"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <div id="viewer">
+      <canvas id="glcanvas"></canvas>
+      <div id="overlayPreview" aria-hidden="true"></div>
+    </div>
+
+    <div id="toolbar" role="toolbar" aria-label="3D tools">
+      <div class="group">
+        <input id="file" type="file" accept=".glb,.gltf,.obj" />
+        <button id="fit" title="Fit" aria-label="Fit">Fit</button>
+        <button id="generate" title="Generate Layers" aria-label="Generate">Generate</button>
+        <button id="downloadAll" title="Download ZIP" aria-label="Download">ZIP</button>
+        <button id="downloadProject" title="Download Project" aria-label="Download Project">Download Project</button>
+        <button id="lightToggle" title="Toggle Light" aria-label="Toggle Light">Light</button>
+      </div>
+
+      <div class="group">
+        <label for="layers">Layers</label>
+        <input id="layers" type="range" min="2" max="30" value="6" aria-label="Number of layers">
+        <span id="layersVal">6</span>
+      </div>
+
+      <div class="group small">
+        <label for="padding">Padding</label>
+        <input id="padding" type="range" min="0" max="200" value="20" aria-label="Layer padding">
+        <span id="paddingVal">20</span>
+      </div>
+
+      <!-- thumbnails for generated layers -->
+      <div id="thumbnails" class="group" aria-live="polite" aria-label="Generated layer thumbnails"></div>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

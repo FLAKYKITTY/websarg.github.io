@@ -1,0 +1,152 @@
+/* Mobile-first viewer UI */
+:root{
+  --toolbar-height:112px;
+  --bg:#f6f8fa;
+  --accent:#0f172a;
+  --muted:#6b7280;
+}
+
+html,body,#app{
+  height:100%;
+  margin:0;
+  background:var(--bg);
+  -webkit-tap-highlight-color: transparent;
+  font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  color:var(--accent);
+}
+
+#app{
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  justify-content:flex-end;
+  height:100vh;
+  width:100vw;
+  overflow:hidden;
+  position:relative;
+}
+
+/* Viewer fills the viewport above toolbar */
+#viewer{
+  position:relative;
+  width:100%;
+  height:calc(100vh - var(--toolbar-height));
+  background:linear-gradient(180deg,#fff,#eef3f8);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* Three.js canvas */
+#glcanvas{
+  width:100%;
+  height:100%;
+  display:block;
+  touch-action:none;
+  /* ensure canvas sits below the overlay preview */
+  position:relative;
+  z-index:1;
+}
+
+/* overlay preview (stacked PNGs) */
+#overlayPreview{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  mix-blend-mode:normal;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  /* ensure preview is visible above the canvas */
+  z-index:2;
+}
+
+/* Bottom toolbar */
+#toolbar{
+  height:var(--toolbar-height);
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:10px;
+  padding:10px;
+  box-sizing:border-box;
+  background:rgba(255,255,255,0.95);
+  border-top:1px solid rgba(0,0,0,0.06);
+  backdrop-filter: blur(6px);
+  position:relative;
+  justify-content:space-between;
+}
+
+.group{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+/* compact controls */
+#toolbar input[type="file"]{
+  padding:8px;
+  border-radius:8px;
+  border:1px solid rgba(0,0,0,0.06);
+  background:#fff;
+}
+
+#toolbar button{
+  height:40px;
+  padding:0 10px;
+  border-radius:8px;
+  border:none;
+  background:#fff;
+  box-shadow:0 1px 2px rgba(0,0,0,0.04);
+  color:var(--accent);
+}
+
+/* sliders */
+#toolbar input[type="range"]{
+  width:120px;
+  accent-color:var(--accent);
+}
+
+#layersVal,#paddingVal{
+  min-width:28px;
+  text-align:center;
+  color:var(--muted);
+}
+
+/* smaller group */
+.group.small{ gap:6px; align-items:center; font-size:13px; color:var(--muted); }
+
+/* responsive tweaks */
+@media (orientation:portrait){
+  #toolbar{ padding:12px; gap:8px; }
+}
+
+/* thumbnails strip in toolbar */
+#thumbnails{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  max-width:50vw;
+  overflow-x:auto;
+  padding:6px 4px;
+}
+#thumbnails img{
+  width:48px;
+  height:48px;
+  object-fit:cover;
+  border-radius:6px;
+  box-shadow:0 1px 2px rgba(0,0,0,0.06);
+  border:1px solid rgba(0,0,0,0.06);
+  background:rgba(255,255,255,0.9);
+  touch-action:manipulation;
+}
+#thumbnails button.thumb-toggle{
+  width:48px;
+  height:48px;
+  padding:0;
+  margin:0;
+  border-radius:6px;
+  border:none;
+  background:transparent;
+}
+#thumbnails img.dimmed{ opacity:0.18; filter:grayscale(60%); }
